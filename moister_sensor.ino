@@ -1,12 +1,14 @@
 #define sensorPin A2
-#define waterPin A1
+#define waterPin 3
 #define limit 300
-#define waterdelay 750
+#define waterdelay 2000
+#define sensordelay 4000
 
 void setup()
 {
   Serial.begin(9600);
-  pinMode(13, OUTPUT);
+  pinMode(sensorPin, INPUT);
+  pinMode(waterPin, OUTPUT);
 }
 
 void loop()
@@ -15,12 +17,11 @@ void loop()
   Serial.println("Analog Value : ");
   Serial.println(sensorValue);
   if (sensorValue<limit){
-    digitalWrite(13, HIGH);
-    digitalWrite(waterPin, HIGH);
+    digitalWrite(waterPin, LOW);
     Serial.println("Waterpump running");
     delay(waterdelay);
-    digitalWrite(waterPin, LOW);
+    digitalWrite(waterPin, HIGH);
     Serial.println("Waterpump not running");
 }
-delay(5000);
+delay(sensordelay);
 }
